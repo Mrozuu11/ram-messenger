@@ -1,6 +1,6 @@
 <template>
   <div class="new-message">
-    <MessageForm v-if="getCharacters" :characters="getCharacters" />
+    <MessageForm v-if="getCharacters.length" :characters="getCharacters" />
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     getCharacters() {
       return this.fetchedCharacters.response.status === 200
         ? this.fetchedCharacters.response.data.results
-        : null;
+        : [];
     },
   },
   async mounted() {

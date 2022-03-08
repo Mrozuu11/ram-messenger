@@ -1,6 +1,6 @@
 <template>
   <div class="message-form">
-    <form action="#" class="form mobile-padding">
+    <form action="/" class="form mobile-padding">
       <div class="header">Send a new message</div>
       <div class="input-group error">
         <label for="title" class="label">Title</label>
@@ -22,6 +22,7 @@
           id="message"
           placeholder="Enter message here..."
           class="input"
+          required
         /><span v-if="!messageCheck" class="error-message"
           >Invalid message format</span
         >
@@ -29,10 +30,12 @@
       <div class="input-group">
         <label for="character-select" class="label">Character</label>
         <el-select
-          v-model="characters.name"
+          v-model="characterId"
+          value-key="id"
           placeholder="Pick a character"
           id="character-select"
           :class="['input input-character', { expanded: expanded }]"
+          required="true"
         >
           <el-option
             v-for="character in characters"
@@ -47,13 +50,16 @@
         >
       </div>
       <div class="btn-wrapper">
-        <button type="submit" class="send-btn">Send</button>
+        <button @click="handleSendMessage" type="submit" class="send-btn">
+          Send
+        </button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "MessageForm",
   props: {
@@ -67,24 +73,56 @@ export default {
       expanded: false,
       title: "",
       message: "",
+      characterId: null,
     };
   },
   methods: {
+    ...mapActions(["updateMessages"]),
+    handleSendMessage() {
+      const character = this.characters.find(
+        (character) => character.id === this.characterId
+      );
+      const messageObject = {
+        id: this.messageId,
+        title: this.title,
+        message: this.message,
+        date: new Date(Date.now())
+          .toLocaleString()
+          .split(",")[0]
+          .replaceAll("/", "."),
+        characterName: character.name,
+        characterImg: character.image,
+      };
+      if (this.titleCheck && this.messageCheck && this.characterCheck) {
+        this.updateMessages([...this.messages, messageObject]);
+      } else {
+        alert("Fill the form");
+      }
+    },
     isExpanded() {
       this.expanded = !this.expanded;
     },
   },
   computed: {
-    titleCheck() {
-      return this.title.length >= 3 && this.title.length <= 32 ? true : false;
+    ...mapGetters(["messages"]),
+    messageId() {
+      return this.messages.forEach((item, i) => {
+        item.id = i + 1;
+      });
     },
-    messageCheck() {
-      return this.message.length > 0 && this.message.length < 256
+    titleCheck() {
+      const character = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+      return !character.test(this.title) &&
+        this.title.length >= 3 &&
+        this.title.length <= 32
         ? true
         : false;
     },
+    messageCheck() {
+      return this.message.length < 256 ? true : false;
+    },
     characterCheck() {
-      return this.characters.name ? true : false;
+      return this.characterId ? true : false;
     },
   },
 };
@@ -101,6 +139,7 @@ export default {
   }
 }
 .message-form {
+  height: 100%;
   .form {
     .input-group {
       position: relative;

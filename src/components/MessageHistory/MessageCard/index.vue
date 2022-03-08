@@ -1,28 +1,16 @@
 <template>
   <div class="message-card">
-    <div class="title">To my buddy Rick</div>
+    <div class="title">{{ sentMessage.title }}</div>
     <div class="character">
       <div class="character__img">
-        <img
-          src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-          alt=""
-        />
+        <img :src="sentMessage.characterImg" :alt="sentMessage.characterName" />
       </div>
       <div class="character__text">
-        <div>Sent to: Rick</div>
-        <div>Date: {message.date}</div>
+        <div>Sent to: {{ sentMessage.characterName }}</div>
+        <div>Date: {{ sentMessage.date }}</div>
       </div>
     </div>
-    <div class="message hide-scrollbar">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras molestie
-      sagittis lorem, ac posuere sem bibendum vitae. Orci varius natoque
-      penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      Maecenas sit amet facilisis justo, nec imperdiet ex. Vestibulum facilisis
-      hendrerit ipsum, et ultricies urna dapibus a. Curabitur viverra odio
-      mollis magna commodo imperdiet. Lorem ipsum dolor sit amet, consectetur
-      adipiscing elit. Suspendisse eu mauris a nibh sollicitudin luctus vitae
-      sed neque.
-    </div>
+    <div class="message hide-scrollbar">{{ sentMessage.message }}</div>
   </div>
 </template>
 <script>

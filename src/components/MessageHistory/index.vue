@@ -1,7 +1,11 @@
 <template>
   <div class="message-history">
     <div class="card">
-      <MessageCard :sent-message="messages" />
+      <MessageCard
+        v-for="message in messages"
+        :key="message.id"
+        :sent-message="message"
+      />
     </div>
   </div>
 </template>
@@ -23,6 +27,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .message-history {
+  height: 100%;
   .card {
     height: 386px;
   }

@@ -15,6 +15,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .history {
+  height: 100%;
   padding: 0 20px;
 }
 </style>
