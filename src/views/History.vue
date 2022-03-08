@@ -1,17 +1,15 @@
 <template>
   <div class="history">
     <div class="header">Message history</div>
+    <MessageHistory />
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import MessageHistory from "@/components/MessageHistory/index.vue";
 export default {
   name: "History",
-  methods: {
-    ...mapActions(["updateMessages"]),
-  },
-  computed: {
-    ...mapGetters(["messages"]),
+  components: {
+    MessageHistory,
   },
 };
 </script>

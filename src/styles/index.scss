@@ -7,6 +7,7 @@
   top: 0;
   left: 0;
   right: 0;
+  line-height: 18px;
   font-family: $base-font-type;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -27,12 +28,19 @@
 
 .header {
   text-align: center;
-  font-size: 24px;
+  font-size: $header-mobile-font-size;
   font-weight: 700;
   margin: 32px 0;
   line-height: 30px;
   text-align: left;
   width: 150px;
+}
+.mobile-padding {
+  padding: 0 20px;
+}
+.error {
+  color: $error-red;
+  border-color: $error-red !important;
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -49,10 +57,19 @@
   /* Microsoft Edge */
   color: $light-grey;
 }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
 @media only screen and (min-width: 760px) {
   .header {
-    font-size: $header-font-size;
+    font-size: $header-desktop-font-size;
     margin-top: 45px;
     margin-bottom: 36px;
     line-height: 45px;
