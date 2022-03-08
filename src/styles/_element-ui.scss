@@ -1,0 +1,39 @@
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: $light-grey;
+}
+.el-select .el-input__inner:focus {
+  border-color: $light-grey;
+}
+.el-input__inner {
+  font-family: $base-font-type;
+  color: inherit;
+  height: 38px;
+  padding: 10px 14px;
+  border-radius: 8px 8px 0 0;
+}
+.el-input__icon {
+  color: $grey !important;
+  font-weight: bold;
+}
+.el-select-dropdown {
+  font-family: $base-font-type;
+  top: 554px !important;
+  box-shadow: none;
+  border-radius: 0 0 8px 8px;
+  .el-select-dropdown__item {
+    color: $primary-navy;
+    padding: 0 14px;
+    height: 38px;
+  }
+  .el-select-dropdown__list {
+    padding: 0;
+  }
+  .popper__arrow {
+    display: none;
+  }
+}
+.el-scrollbar__thumb {
+  width: 4px !important;
+  height: 34px !important;
+  color: $secondary-light-grey;
+}

@@ -1,0 +1,62 @@
+@import "_variables.scss";
+@import "_colors.scss";
+@import "_element-ui.scss";
+
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-family: $base-font-type;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $primary-navy;
+}
+
+#nav {
+  a,
+  a:visited {
+    text-decoration: none;
+    color: $primary-navy;
+
+    &.router-link-exact-active {
+      color: $secondary-light-blue;
+    }
+  }
+}
+
+.header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 32px 0;
+  line-height: 30px;
+  text-align: left;
+  width: 150px;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: $light-grey;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: $light-grey;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: $light-grey;
+}
+
+@media only screen and (min-width: 760px) {
+  .header {
+    font-size: $header-font-size;
+    margin-top: 45px;
+    margin-bottom: 36px;
+    line-height: 45px;
+    text-align: center;
+    width: 100%;
+  }
+}
