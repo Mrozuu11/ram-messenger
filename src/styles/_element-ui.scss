@@ -17,9 +17,15 @@
 }
 .el-select-dropdown {
   font-family: $base-font-type;
-  top: 554px !important;
+  position: relative !important;
+  overflow: hidden;
+  height: 191px !important;
+  top: 0 !important;
+  left: 0 !important;
   box-shadow: none;
   border-radius: 0 0 8px 8px;
+  margin: 0 !important;
+
   .el-select-dropdown__item {
     color: $primary-navy;
     padding: 0 14px;

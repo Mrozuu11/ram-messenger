@@ -27,6 +27,11 @@ const getters = {
   messages: (state) => {
     return state.messages;
   },
+  sortedMessages: (state) => {
+    return [...state.messages].sort((a, b) => {
+      return b.date - a.date;
+    });
+  },
 };
 
 const mutations = {

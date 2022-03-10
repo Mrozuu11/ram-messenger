@@ -2,7 +2,7 @@
   <div class="message-history">
     <div class="card">
       <MessageCard
-        v-for="message in messages"
+        v-for="message in sortedMessages"
         :key="message.id"
         :sent-message="message"
       />
@@ -21,7 +21,7 @@ export default {
     ...mapActions(["updateMessages"]),
   },
   computed: {
-    ...mapGetters(["messages"]),
+    ...mapGetters(["sortedMessages"]),
   },
 };
 </script>
