@@ -27,9 +27,10 @@ const getters = {
   messages: (state) => {
     return state.messages;
   },
+  // Sort messages to display newest first in history
   sortedMessages: (state) => {
     return [...state.messages].sort((a, b) => {
-      return b.date - a.date;
+      return b.id - a.id;
     });
   },
 };

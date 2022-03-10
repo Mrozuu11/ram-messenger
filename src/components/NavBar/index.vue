@@ -26,7 +26,7 @@ export default {
   background: #f5f8fb;
   .navbar__logo {
     width: 126px;
-    height: $header-desktop-font-size;
+    height: 36px;
   }
   .navbar__links {
     font-size: $regular-font-size;

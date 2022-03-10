@@ -24,7 +24,7 @@
           :class="['input', { error: !messageCheck }]"
           required
         /><span v-if="!messageCheck" class="error-message"
-          >Message is required</span
+          >Message up to 256 characters is required</span
         >
       </div>
       <div :class="['input-group', { error: !characterCheck }]">
@@ -88,15 +88,21 @@ export default {
     toggleIsSubmitted() {
       this.isSubmitted = true;
     },
+    calculateMessageId() {
+      return this.messages.length;
+    },
     handleSendMessage() {
       const character = this.characters.find(
         (character) => character.id === this.characterId
       );
       const messageObject = {
-        id: this.messageId,
+        id: this.calculateMessageId(),
         title: this.title,
         message: this.message,
-        date: new Date(Date.now()),
+        date: new Date(Date.now())
+          .toLocaleString()
+          .split(",")[0]
+          .replaceAll("/", "."),
         characterName: character?.name,
         characterImg: character?.image,
       };
@@ -104,17 +110,11 @@ export default {
         this.updateMessages([...this.messages, messageObject]);
         alert(`Message sent to: ${character?.name}`);
         location.reload();
-        /* this.$router.push("/history"); */
       }
     },
   },
   computed: {
     ...mapGetters(["messages"]),
-    messageId() {
-      return this.messages?.forEach((item, i) => {
-        item.id = i + 1;
-      });
-    },
     titleCheck() {
       const character = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
       if (this.isSubmitted) {
