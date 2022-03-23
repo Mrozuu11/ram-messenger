@@ -5,12 +5,26 @@ It utilises libraries such as Axios to access the REST API and VuePersist to han
 The app is optimised for both desktop and mobile view.
 
 Stack:
+
+```
 Vue.JS (Vue2)
+```
+
 Vuex - store functionality
+
+```
 Router - handling views
+```
+
 Axios - working with the REST API
+
+```
 VuePersist - handling local storage
+```
+
 ElementUI
+
+```
 SCSS
 
 Demo:
@@ -19,26 +33,35 @@ Demo:
 ## Project setup
 
 ```
+
 npm install
+
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
+
 npm run serve
+
 ```
 
 ### Compiles and minifies for production
 
 ```
+
 npm run build
+
 ```
 
 ### Lints and fixes files
 
 ```
+
 npm run lint
+
 ```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+```
