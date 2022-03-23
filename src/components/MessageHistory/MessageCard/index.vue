@@ -1,16 +1,21 @@
 <template>
   <div class="message-card">
-    <div class="title">{{ sentMessage.title }}</div>
-    <div class="character">
+    <div class="message-card__title">{{ sentMessage.title }}</div>
+    <div class="message-card__character">
       <div class="character__img">
-        <img :src="sentMessage.characterImg" :alt="sentMessage.characterName" />
+        <img
+          :src="sentMessage.character.img"
+          :alt="sentMessage.character.name"
+        />
       </div>
       <div class="character__text">
-        <div>Sent to: {{ sentMessage.characterName }}</div>
+        <div>Sent to: {{ sentMessage.character.name }}</div>
         <div>Date: {{ sentMessage.date }}</div>
       </div>
     </div>
-    <div class="message hide-scrollbar">{{ sentMessage.message }}</div>
+    <div class="message-card__message hide-scrollbar">
+      {{ sentMessage.message }}
+    </div>
   </div>
 </template>
 <script>
@@ -31,12 +36,12 @@ export default {
   padding: 24px;
   padding-bottom: 20px;
   margin-bottom: 36px;
-  .title {
+  .message-card__title {
     font-size: $small-font-size;
     font-weight: 600;
     height: 10px;
   }
-  .character {
+  .message-card__character {
     display: flex;
     height: 48px;
     gap: 16px;
@@ -56,7 +61,7 @@ export default {
       font-size: $small-font-size;
     }
   }
-  .message {
+  .message-card__message {
     height: 240px;
     overflow: scroll;
   }
@@ -64,7 +69,7 @@ export default {
 @media only screen and (min-width: 760px) {
   .message-card {
     padding-bottom: 24px;
-    .message {
+    .message-card__message {
       height: 180px;
     }
   }

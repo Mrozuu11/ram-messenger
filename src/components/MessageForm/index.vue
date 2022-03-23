@@ -1,41 +1,59 @@
 <template>
   <div class="message-form">
-    <form action="/" class="form mobile-padding">
-      <div class="header">Send a new message</div>
-      <div :class="['input-group', { error: !titleCheck }]">
-        <label for="title" class="label">Title</label>
+    <form action="/" class="message-form__form mobile-padding">
+      <div class="form__header header">Send a new message</div>
+      <div
+        :class="['form__field', { error: isSubmitted && titleValidationError }]"
+      >
+        <label for="title" class="field__label">Title</label>
         <input
           v-model="title"
           id="title"
           placeholder="Enter title here..."
           type="text"
-          :class="['input', { error: !titleCheck }]"
+          :class="[
+            'field__input',
+            { error: isSubmitted && titleValidationError },
+          ]"
         />
-        <span v-if="!titleCheck" class="error-message"
-          >Please enter the title</span
+        <span
+          v-if="isSubmitted && titleValidationError"
+          class="error-message"
+          >{{ titleValidationError }}</span
         >
       </div>
-      <div :class="['input-group', { error: !messageCheck }]">
-        <label for="message" class="label">Message</label>
+      <div
+        :class="['form__field', { error: isSubmitted && !messageValidation }]"
+      >
+        <label for="message" class="field__label">Message</label>
         <textarea
           v-model="message"
           id="message"
           placeholder="Enter message here..."
-          :class="['input', { error: !messageCheck }]"
+          :class="[
+            'field__input',
+            { error: isSubmitted && !messageValidation },
+          ]"
           required
-        /><span v-if="!messageCheck" class="error-message"
+        /><span v-if="isSubmitted && !messageValidation" class="error-message"
           >Message up to 256 characters is required</span
         >
       </div>
-      <div :class="['input-group', { error: !characterCheck }]">
-        <label for="character-select" class="label">Character</label>
+      <div
+        :class="['form__field', { error: isSubmitted && !characterValidation }]"
+      >
+        <label for="character-select" class="field__label">Character</label>
         <el-select
           v-model="characterId"
           :popper-append-to-body="false"
           value-key="id"
           placeholder="Pick a character"
           id="character-select"
-          :class="['input', 'input-character', { error: !characterCheck }]"
+          :class="[
+            'field__input',
+            'field__input--character',
+            { error: !characterValidation },
+          ]"
         >
           <el-option
             v-for="character in characters"
@@ -45,18 +63,18 @@
           >
           </el-option>
         </el-select>
-        <span v-if="!characterCheck" class="error-message"
+        <span v-if="isSubmitted && !characterValidation" class="error-message"
           >Pick a character</span
         >
       </div>
-      <div class="btn-wrapper">
+      <div class="button">
         <button
           @click="
             handleSendMessage();
             toggleIsSubmitted();
           "
           type="button"
-          class="send-btn"
+          class="button__send-btn"
         >
           Send
         </button>
@@ -103,10 +121,12 @@ export default {
           .toLocaleString()
           .split(",")[0]
           .replaceAll("/", "."),
-        characterName: character?.name,
-        characterImg: character?.image,
+        character: {
+          name: character?.name,
+          img: character?.image,
+        },
       };
-      if (this.isSubmitted && this.checkForm) {
+      if (this.isSubmitted && this.formIsValid) {
         this.updateMessages([...this.messages, messageObject]);
         alert(`Message sent to: ${character?.name}`);
         location.reload();
@@ -115,40 +135,32 @@ export default {
   },
   computed: {
     ...mapGetters(["messages"]),
-    titleCheck() {
-      const character = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
-      if (this.isSubmitted) {
-        if (
-          !character.test(this.title) &&
-          this.title.length >= 3 &&
-          this.title.length <= 32
-        ) {
-          return true;
-        }
-        return false;
-      }
-      return true;
+    titleRegex() {
+      // regex to not allow special characters
+      return /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
     },
-    messageCheck() {
-      if (this.isSubmitted) {
-        if (this.message.length > 0 && this.message.length < 256) {
-          return true;
-        }
-        return false;
+    titleValidationError() {
+      if (this.titleRegex.test(this.title)) {
+        return "The title is in incorrect format";
       }
-      return true;
-    },
-    characterCheck() {
-      if (this.isSubmitted) {
-        if (this.characterId) {
-          return true;
-        }
-        return false;
+      if (this.title.length < 3) {
+        return "Title is too short";
       }
-      return true;
+      if (this.title.length > 32) {
+        return "Title is too long";
+      }
+      return null;
     },
-    checkForm() {
-      return this.titleCheck && this.messageCheck && this.characterCheck
+    messageValidation() {
+      return this.message.length > 0 && this.message.length < 256;
+    },
+    characterValidation() {
+      return !!this.characterId;
+    },
+    formIsValid() {
+      return !this.titleValidationError &&
+        this.messageValidation &&
+        this.characterValidation
         ? true
         : false;
     },
@@ -161,24 +173,24 @@ export default {
   .message-form {
     display: flex;
     justify-content: center;
-    .form {
+    .message-form__form {
       width: 460px;
     }
   }
 }
 .message-form {
   height: 100%;
-  .form {
-    .input-group {
+  .message-form__form {
+    .form__field {
       position: relative;
       display: flex;
       flex-direction: column;
       margin-bottom: 28px;
       font-size: $small-font-size;
-      .label {
+      .field__label {
         text-align: left;
       }
-      .input {
+      .field__input {
         background: white;
         border: 1px solid $light-grey;
         outline: none;
@@ -189,7 +201,7 @@ export default {
         padding: 10px 14px;
         margin-top: 12px;
 
-        &-character {
+        &--character {
           border: none;
           padding: 0;
         }
@@ -204,10 +216,10 @@ export default {
         resize: none;
       }
     }
-    .btn-wrapper {
+    .button {
       display: flex;
       justify-content: flex-end;
-      .send-btn {
+      .button__send-btn {
         font-family: inherit;
         font-size: inherit;
         border-radius: 19px;

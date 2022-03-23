@@ -1,6 +1,6 @@
 <template>
   <div class="history">
-    <div class="header">Message history</div>
+    <div class="history__header header">Message history</div>
     <MessageHistory />
   </div>
 </template>
