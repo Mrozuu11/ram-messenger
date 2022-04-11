@@ -14,7 +14,7 @@ ElementUI\
 SCSS\
 
 Demo:
-[![RAM-demo.gif](https://i.postimg.cc/nr2nXm9S/RAM-demo.gif)](https://postimg.cc/V0JxTdRX)
+![RAM-demo.gif](src/assets/demo/RAM-demo.gif)
 
 ## Project setup
 

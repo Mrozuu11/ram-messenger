@@ -2,8 +2,8 @@
   <div class="navbar mobile-padding">
     <img class="navbar__logo" src="@/assets/rick_morty_PNG7 2.svg" alt="logo" />
     <div class="navbar__links">
-      <router-link class="links__link" to="/">New Message</router-link>
-      <router-link class="links__link" to="/history">History</router-link>
+      <router-link class="navbar__link" to="/">New Message</router-link>
+      <router-link class="navbar__link" to="/history">History</router-link>
     </div>
   </div>
 </template>
@@ -20,11 +20,11 @@ export default {
   justify-content: space-between;
   align-items: center;
   background: #f5f8fb;
-  .navbar__logo {
+  &__logo {
     width: 126px;
     height: 36px;
   }
-  .navbar__links {
+  &__links {
     font-size: $regular-font-size;
     display: flex;
     gap: 24px;
@@ -35,7 +35,7 @@ export default {
   .navbar {
     height: 70px;
     padding: 0 200px;
-    .navbar__links {
+    &__links {
       gap: 20px;
     }
   }

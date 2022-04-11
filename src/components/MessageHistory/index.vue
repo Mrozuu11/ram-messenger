@@ -33,7 +33,7 @@ export default {
   .message-history {
     display: flex;
     justify-content: center;
-    .message-history__card {
+    &__card {
       width: 460px;
     }
   }
